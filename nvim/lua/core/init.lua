@@ -1,0 +1,6 @@
+require('core/packer-config')
+require('core/comment')
+require('core/terminal')
+require('core/indent')
+require('core/cp')
+require('core/lsp-config')
