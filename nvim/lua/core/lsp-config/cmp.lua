@@ -69,7 +69,8 @@ cmp.setup({
   },
   snippet = {
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
+         require("luasnip").lsp_expand(args.body)
+      -- vim.fn["vsnip#anonymous"](args.body)
     end
   },
      window = {
@@ -92,28 +93,32 @@ cmp.setup({
     ["<C-j>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif vim.fn["vsnip#available"]() == 1 then
-        feedkey("<Plug>(vsnip-expand-or-jump)", "")
-      elseif has_words_before() then
-        cmp.complete()
+      elseif require("luasnip").expand_or_jumpable() then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
       else
-        fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+        fallback()
       end
-    end, {"i", "s"}),
-
-    ["<S-Tab>"] = cmp.mapping(function()
+    end, {
+      "i",
+      "s",
+    }), 
+  ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-        feedkey("<Plug>(vsnip-jump-prev)", "")
+      elseif require("luasnip").jumpable(-1) then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+      else
+        fallback()
       end
-    end, {"i", "s"})
+    end, {
+      "i",
+      "s",
+    }),
   },
   sources = {
     {name = 'nvim_lsp'},
     {name = 'vsnip'}, 
     { name = 'luasnip' },
-    { name = 'coc-flutter' },
     {name = 'buffer'}
   },
   formatting = {format = lspkind.cmp_format({with_text = true, maxwidth = 50})}
@@ -145,3 +150,4 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+
