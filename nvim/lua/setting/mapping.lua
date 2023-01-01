@@ -72,6 +72,8 @@ map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
 map('n', '<Space>ff', ':Telescope find_files<CR>', opts)
 map('n', '<Space>sl', ':Telescope oldfiles<CR>', opts)
 map('n', '<Space>fw', ':Telescope live_grep<CR>', opts)
+map('n', '<Space>fa', ':lua vim.lsp.buf.code_action()<CR>', opts)
+
 
 
 

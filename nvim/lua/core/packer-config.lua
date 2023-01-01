@@ -48,7 +48,7 @@ use{
 
 
 --For Flutter
-  use {'akinsho/flutter-tools.nvim', requires = 'nvim-lua/plenary.nvim'}
+  use 'akinsho/flutter-tools.nvim'
 
 -- For Snippets
 use {
@@ -59,12 +59,14 @@ use {
 
 -- Pore
 use 'mfussenegger/nvim-dap'
-  use 'folke/lazy.nvim'
+use 'folke/lazy.nvim'
 
 
 --CODE HELPER
 use{
   'alvan/vim-closetag',
+  'nvim-telescope/telescope-ui-select.nvim',
+
 }
 
 --LSP CONFIG
